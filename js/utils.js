@@ -73,6 +73,15 @@ function getColorForDegradation(degradation) {
     }
 }
 
+function cacheImage(item) {
+    if (item.type === "item_weapon") return;
+
+    const image = item.metadata?.image;
+    if (image && imageCache[image] == null) {
+        preloadImages([image]);
+    }
+}
+
 
 /**
  * replaces default data with custom data
@@ -82,22 +91,27 @@ function getColorForDegradation(degradation) {
  * @returns {{ tooltipData: string, degradation: string, image: string, label: string, weight: number, description: string}}
  */
 function getItemMetadataInfo(item, isCustom) {
+
+    cacheImage(item);
+
     const tooltipData = item.metadata?.tooltip ? "<br>" + item.metadata.tooltip : "";
 
     const degradation = isCustom ? getDegradationCustom(item) : getDegradationMain(item);
 
     const image = item.type !== "item_weapon"
-        ? item.metadata?.image ? item.metadata.image : item.name ? item.name : "default"
-        : item.name ? item.name : "default";
-    const weight = item.metadata?.weight ? item.metadata.weight : item.weight;
+        ? item.metadata?.image ? item.metadata.image : item.name ? item.name : "default" // items
+        : item.name ? item.name : "default"; // weapons
+
+    const weight = item.metadata?.weight ?
+        item.metadata.weight : item.weight ? item.weight : 0;
 
     const label = item.type !== "item_weapon"
-        ? item.metadata?.label ? item.metadata.label : item.label
-        : item?.custom_label ? item.custom_label : item.label;
+        ? item.metadata?.label ? item.metadata.label : item.label // items
+        : item?.custom_label ? item.custom_label : item.label; // weapons
 
     const description = item.type !== "item_weapon"
-        ? item.metadata?.description ? item.metadata.description : item.desc
-        : item?.custom_desc ? item.custom_desc : item.desc;
+        ? item.metadata?.description ? item.metadata.description : item.desc // items
+        : item?.custom_desc ? item.custom_desc : item.desc; // weapons
 
     return { tooltipData, degradation, image, label, weight, description };
 }
