@@ -1,3 +1,7 @@
+To improve my PC and continue offering things
+
+https://ko-fi.com/riversafe33
+
 Rename the folder html-main to html, replace it with the original html from vorp_inventory, and insert your items folder.
 
 ![image](https://github.com/user-attachments/assets/bf4761c5-9d69-4431-af6b-9b2e275c8af6)
