@@ -1,3 +1,5 @@
+# Remove -main the folder should be named just html
+
 To improve my PC and continue offering free scripts: https://ko-fi.com/riversafe33
 
 Rename the folder html-main to html, replace it with the original html from vorp_inventory, and insert your items folder.
